@@ -1,0 +1,818 @@
+body.re-projection {
+	overflow: hidden;
+}
+
+.projector-canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -100;
+	opacity: 0;
+	visibility: hidden;
+	/*background-image: url( /img/preload/preload2.svg );*/
+	background-size: 0;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.projector-canvas * {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	    -ms-box-sizing: border-box;
+	     -o-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+.projector-canvas.opened {
+	visibility: visible;
+}
+.projector-canvas.accent::before,
+.projector-canvas.dark::before {
+	content: '';
+	display: block;
+	position: fixed;
+	top: -10em;
+	left: -10em;
+	right: -10em;
+	bottom: -10em;
+	z-index: -1;
+	opacity: 1;
+	background-color: inherit;
+}
+.projector-canvas.preload {
+	background-size: 43px;
+}
+.projector-canvas.dark {
+	background-color: rgba( 0, 0, 0, 1 ) !important;
+}
+.projector-canvas.light {
+	background-color: rgba( 0, 0, 0, 0.3 ) !important;
+}
+.projector-canvas.dark img {
+	background-color: rgb( 255, 255, 255 );
+	border: none;
+	padding: 0;
+}
+.projector-canvas.light img {
+	background-color: rgb( 255, 255, 255 ) !important;
+}
+.projector-canvas.opened {
+	z-index: 100;
+}
+.projector-canvas.hide-projection-controls.opened {
+	cursor: none;
+}
+.projector-canvas.hide-projection-controls.leave-cursor-visible {
+	cursor: initial;
+}
+.projector-canvas .prev-photograph,
+.projector-canvas .next-photograph {
+	position: absolute;
+	top: 50%;
+	height: 70px;
+	width: 70px;
+	background: rgba( 0, 0, 0, 0.89 );
+	/*border: 2px solid #ddd;*/
+	opacity: .4;
+	z-index: 5;
+	
+	-webkit-transform: translateY( -50% );
+	   -moz-transform: translateY( -50% );
+	    -ms-transform: translateY( -50% );
+	     -o-transform: translateY( -50% );
+	        transform: translateY( -50% );
+	
+	-webkit-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+.projector-canvas .prev-photograph.invisible,
+.projector-canvas .next-photograph.invisible {
+	display: none;
+}
+.projector-canvas .prev-photograph:hover,
+.projector-canvas .next-photograph:hover {
+	opacity: .9;
+}
+.projector-canvas .prev-photograph {
+	left: -35px;
+	
+	-webkit-border-radius: 0 50% 50% 0;
+	   -moz-border-radius: 0 50% 50% 0;
+	    -ms-border-radius: 0 50% 50% 0;
+	     -o-border-radius: 0 50% 50% 0;
+	        border-radius: 0 50% 50% 0;
+}
+.projector-canvas.hide-projection-controls .next-photograph,
+.projector-canvas.hide-projection-controls .prev-photograph {
+	opacity: 0;
+}
+.projector-canvas.hide-projection-controls .prev-photograph {
+	/*left: -70px;*/
+}
+.projector-canvas .next-photograph {
+	right: -35px;
+	
+	-webkit-border-radius: 50% 0 0 50%;
+	   -moz-border-radius: 50% 0 0 50%;
+	    -ms-border-radius: 50% 0 0 50%;
+	     -o-border-radius: 50% 0 0 50%;
+	        border-radius: 50% 0 0 50%;
+}
+.projector-canvas.hide-projection-controls .next-photograph {
+	/*right: -70px;*/
+}
+.projector-canvas .prev-photograph::after,
+.projector-canvas .next-photograph::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 28px;
+	height: 12px;
+	width: 12px;
+	border: 0 solid transparent;
+	
+	-webkit-transform: rotate( 45deg );
+	   -moz-transform: rotate( 45deg );
+	    -ms-transform: rotate( 45deg );
+	     -o-transform: rotate( 45deg );
+	        transform: rotate( 45deg );
+}
+.projector-canvas .prev-photograph::after {
+	border-color: transparent transparent #fff #fff;
+	border-width: 0 0 3px 3px;
+	right: 12px;
+}
+.projector-canvas .next-photograph::after {
+	border-color: #fff #fff transparent transparent;
+	border-width: 3px 3px 0 0;
+	left: 12px;
+}
+
+/* Close button */
+.projector-canvas .close-projection-button {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 42px;
+	width: 42px;
+	cursor: pointer;
+	background: rgba( 0, 0, 0, 0.89 );
+	/*border: 3px solid #ddd;*/
+	opacity: .4;
+	z-index: 2;
+	border-width: 0 2px 2px 0;
+	overflow: hidden;
+	
+	-webkit-border-radius: 0 0 100%;
+	   -moz-border-radius: 0 0 100%;
+	    -ms-border-radius: 0 0 100%;
+	     -o-border-radius: 0 0 100%;
+	        border-radius: 0 0 100%;
+	
+	-webkit-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+.projector-canvas .close-projection-button.invisible {
+	display: none;
+}
+.projector-canvas .close-projection-button:hover {
+	opacity: .74;
+}
+.projector-canvas .close-projection-button::before,
+.projector-canvas .close-projection-button::after {
+	content: '';
+	display: block;
+	width: auto;
+	height: 24px;
+	border-left: 3px solid #fff;
+	position: absolute;
+	top: 3px;
+	left: 14px;
+}
+.projector-canvas .close-projection-button::before {
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	     -o-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+.projector-canvas .close-projection-button::after {
+	-webkit-transform: rotate(-45deg);
+	   -moz-transform: rotate(-45deg);
+	    -ms-transform: rotate(-45deg);
+	     -o-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
+}
+.projector-canvas.hide-projection-controls .close-projection-button {
+	height: 0;
+	width: 0;
+	border-width: 0;
+}
+/* End Close button */
+
+/* Settings cont */
+.projector-canvas .settings-projection-cont {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 42px;
+	width: 42px;
+	background: rgba( 0, 0, 0, 0.89 );
+	/*border: 3px solid #ddd;*/
+	opacity: .4;
+	z-index: 2;
+	border-width: 0 0 2px 2px;
+	overflow: hidden;
+	
+	-webkit-border-radius: 0 0 0 100%;
+	   -moz-border-radius: 0 0 0 100%;
+	    -ms-border-radius: 0 0 0 100%;
+	     -o-border-radius: 0 0 0 100%;
+	        border-radius: 0 0 0 100%;
+	
+	-webkit-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+.projector-canvas .settings-projection-cont.invisible {
+	display: none;
+}
+.projector-canvas .settings-projection-cont.opened {
+	width: 210px;
+	opacity: 0.8;
+	overflow: hidden;
+	
+	-webkit-border-radius: 0 0 0 5px;
+	   -moz-border-radius: 0 0 0 5px;
+	    -ms-border-radius: 0 0 0 5px;
+	     -o-border-radius: 0 0 0 5px;
+	        border-radius: 0 0 0 5px;
+}
+.projector-canvas .settings-projection-cont:hover {
+	opacity: .74;
+}
+.projector-canvas.hide-projection-controls .settings-projection-cont:not(.opened) {
+	/*height: 0;*/
+	/*width: 0;*/
+	/*border-width: 0;*/
+	opacity: 0;
+}
+/* End Settings cont */
+
+/* Settings button */
+.projector-canvas .settings-projection-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 42px;
+	width: 42px;
+	cursor: pointer;
+	background: transparent;
+}
+.projector-canvas .settings-projection-button::before,
+.projector-canvas .settings-projection-button::after {
+	content: '';
+	display: block;
+	border: none;
+	background: #ddd;
+	position: absolute;
+	top: 4px;
+	right: 14px;
+	
+	-webkit-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+.projector-canvas .settings-projection-cont .settings-projection-button::before {
+	width: 3px;
+	height: 24px;
+	box-shadow:
+		-8px 0 0 #ddd,
+		8px 0 0 #ddd;
+	
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	    -ms-border-radius: 2px;
+	     -o-border-radius: 2px;
+	        border-radius: 2px;
+}
+.projector-canvas .settings-projection-cont .settings-projection-button::after {
+	width: 3px;
+	height: 3px;
+	top: 8px;
+	background: #000;
+	box-shadow:
+		0 0 0 2px #ddd,
+		-8px 14px 0 #000,
+		-8px 14px 0 2px #ddd,
+		8px 7px 0 #000,
+		8px 7px 0 2px #ddd;
+	
+	-webkit-border-radius: 50%;
+	   -moz-border-radius: 50%;
+	    -ms-border-radius: 50%;
+	     -o-border-radius: 50%;
+	        border-radius: 50%;
+}
+.projector-canvas .settings-projection-cont.opened .settings-projection-button::before,
+.projector-canvas .settings-projection-cont.opened .settings-projection-button::after {
+	width: 3px;
+	height: 18px;
+	top: 11px;
+	right: 20px;
+	background: #ddd;
+	box-shadow: none;
+	
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	    -ms-border-radius: 2px;
+	     -o-border-radius: 2px;
+	        border-radius: 2px;
+}
+.projector-canvas .settings-projection-cont.opened .settings-projection-button::before {
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	     -o-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+.projector-canvas .settings-projection-cont.opened .settings-projection-button::after {
+	-webkit-transform: rotate(-45deg);
+	   -moz-transform: rotate(-45deg);
+	    -ms-transform: rotate(-45deg);
+	     -o-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
+}
+.projector-canvas .settings-projection-cont.opened .settings-projection-background-button,
+.projector-canvas .settings-projection-cont.opened .settings-projection-fullscreen-button {
+	height: 25px;
+	width: 25px;
+	margin: 7px 0 7px 14px;
+	display: inline-block;
+	border: 1px solid #bbb;
+	
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+	    -ms-border-radius: 3px;
+	     -o-border-radius: 3px;
+	        border-radius: 3px;
+}
+.projector-canvas .settings-projection-cont.opened .settings-projection-background-button.spb-light {
+	background: #888;
+}
+.projector-canvas .settings-projection-cont.opened .settings-projection-background-button.spb-dark {
+	background: #222;
+}
+.projector-canvas .settings-projection-cont.opened .settings-projection-background-button.spb-accent {
+	background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+}
+.projector-canvas .settings-projection-cont.opened .settings-projection-fullscreen-button {
+	background: #222;
+	position: relative;
+	
+	-webkit-border-radius: 0;
+	   -moz-border-radius: 0;
+	    -ms-border-radius: 0;
+	     -o-border-radius: 0;
+	        border-radius: 0;
+}
+.projector-canvas .settings-projection-cont.opened .settings-projection-fullscreen-button::before {
+	content: '';
+	display: block;
+	position: absolute;
+	height: 20%;
+	width: 20%;
+	top: 40%;
+	left: 40%;
+	background: transparent;
+	
+	-webkit-box-shadow:
+		-4px -4px 0 0 #222, -5px -5px 0 0px #bbb,
+		4px -4px 0 0 #222, 5px -5px 0 0px #bbb,
+		-4px 4px 0 0 #222, -5px 5px 0 0px #bbb,
+		4px 4px 0 0 #222, 5px 5px 0 0px #bbb;
+	   -moz-box-shadow:
+		-4px -4px 0 0 #222, -5px -5px 0 0px #bbb,
+		4px -4px 0 0 #222, 5px -5px 0 0px #bbb,
+		-4px 4px 0 0 #222, -5px 5px 0 0px #bbb,
+		4px 4px 0 0 #222, 5px 5px 0 0px #bbb;
+	    -ms-box-shadow:
+		-4px -4px 0 0 #222, -5px -5px 0 0px #bbb,
+		4px -4px 0 0 #222, 5px -5px 0 0px #bbb,
+		-4px 4px 0 0 #222, -5px 5px 0 0px #bbb,
+		4px 4px 0 0 #222, 5px 5px 0 0px #bbb;
+	     -o-box-shadow:
+		-4px -4px 0 0 #222, -5px -5px 0 0px #bbb,
+		4px -4px 0 0 #222, 5px -5px 0 0px #bbb,
+		-4px 4px 0 0 #222, -5px 5px 0 0px #bbb,
+		4px 4px 0 0 #222, 5px 5px 0 0px #bbb;
+	        box-shadow:
+		-4px -4px 0 0 #222, -5px -5px 0 0px #bbb,
+		4px -4px 0 0 #222, 5px -5px 0 0px #bbb,
+		-4px 4px 0 0 #222, -5px 5px 0 0px #bbb,
+		4px 4px 0 0 #222, 5px 5px 0 0px #bbb;
+}
+/* End Settings button */
+
+/* Exif info */
+.projector-canvas .photograph-exif-info {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	height: 42px;
+	width: 42px;
+	min-height: 42px;
+	min-width: 42px;
+	background: rgba( 0, 0, 0, 0.89 );
+	/*border: 3px solid #ddd;*/
+	opacity: .4;
+	z-index: 2;
+	border-width: 2px 0 0 2px;
+	overflow: hidden;
+	padding: 1.1em;
+	
+	-webkit-border-radius: 100% 0 0 0;
+	   -moz-border-radius: 100% 0 0 0;
+	    -ms-border-radius: 100% 0 0 0;
+	     -o-border-radius: 100% 0 0 0;
+	        border-radius: 100% 0 0 0;
+	
+	-webkit-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+.projector-canvas .photograph-exif-info.invisible {
+	display: none;
+}
+.projector-canvas .photograph-description-info {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-align: left;
+	z-index: 1;
+	max-width: calc(100% - 200px);
+	opacity: 1;
+	
+	-webkit-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+.projector-canvas .photograph-description-info.invisible {
+	display: none;
+}
+.projector-canvas.hide-projection-controls .photograph-description-info,
+.projector-canvas .photograph-description-info.empty {
+	opacity: 0;
+}
+.projector-canvas .photograph-exif-info.opened {
+	width: auto;
+	height: auto;
+	opacity: 0.8;
+	overflow: hidden;
+	padding-right: 50px;
+	
+	-webkit-border-radius: 5px 0 0 0;
+	   -moz-border-radius: 5px 0 0 0;
+	    -ms-border-radius: 5px 0 0 0;
+	     -o-border-radius: 5px 0 0 0;
+	        border-radius: 5px 0 0 0;
+},
+.projector-canvas .photograph-exif-info:hover {
+	opacity: .74;
+}
+.projector-canvas.hide-projection-controls .photograph-exif-info:not(.opened),
+.projector-canvas .photograph-exif-info.empty {
+	/*height: 0;*/
+	/*width: 0;*/
+	/*min-height: 0;*/
+	/*min-width: 0;*/
+	/*border-width: 0;*/
+	/*padding: 0;*/
+	opacity: 0;
+	
+	-webkit-border-radius: 100% 0 0 0;
+	   -moz-border-radius: 100% 0 0 0;
+	    -ms-border-radius: 100% 0 0 0;
+	     -o-border-radius: 100% 0 0 0;
+	        border-radius: 100% 0 0 0;
+}
+.projector-canvas .photograph-exif-info,
+.projector-canvas .photograph-description-info {
+	font-family: 'Sans', 'Open Sans', 'Trebuchet MS', sans-serif;
+	color: #fff;
+	line-height: 1.5;
+	font-size: 13px;
+}
+.projector-canvas .photograph-exif-info:hover {
+	background: rgba(0, 0, 0, 0.8);
+}
+/* Edn Exif info */
+
+/* Exif info button */
+.projector-canvas .photograph-exif-info-button {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: 40px;
+	width: 40px;
+	cursor: pointer;
+	background: transparent;
+	z-index: 10;
+	
+	-webkit-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+.projector-canvas .photograph-exif-info-button::before,
+.projector-canvas .photograph-exif-info-button::after {
+	content: '';
+	display: block;
+	border: none;
+	background: #ddd;
+	position: absolute;
+	width: 4px;
+	right: 12px;
+	
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	    -ms-border-radius: 2px;
+	     -o-border-radius: 2px;
+	        border-radius: 2px;
+	
+	-webkit-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+.projector-canvas .photograph-exif-info .photograph-exif-info-button::before {
+	height: 14px;
+	bottom: 8px;
+}
+.projector-canvas .photograph-exif-info .photograph-exif-info-button::after {
+	height: 4px;
+	bottom: 26px;
+}
+.projector-canvas .photograph-exif-info.opened .photograph-exif-info-button {
+}
+.projector-canvas .photograph-exif-info.opened .photograph-exif-info-button::before,
+.projector-canvas .photograph-exif-info.opened .photograph-exif-info-button::after {
+	width: 3px;
+	height: 18px;
+	bottom: 11px;
+	right: 20px;
+	background: #ddd;
+	box-shadow: none;
+	
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	    -ms-border-radius: 2px;
+	     -o-border-radius: 2px;
+	        border-radius: 2px;
+}
+.projector-canvas .photograph-exif-info.opened .photograph-exif-info-button::before {
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	     -o-transform: rotate(45deg);
+	        transform: rotate(45deg);
+}
+.projector-canvas .photograph-exif-info.opened .photograph-exif-info-button::after {
+	-webkit-transform: rotate(-45deg);
+	   -moz-transform: rotate(-45deg);
+	    -ms-transform: rotate(-45deg);
+	     -o-transform: rotate(-45deg);
+	        transform: rotate(-45deg);
+}
+/* End Exif info button */
+
+/* Exif info data */
+.projector-canvas .photograph-exif-info .exif-info-box {
+	max-width: 222px;
+	opacity: 0;
+	z-index: -10;
+	
+	-webkit-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+.projector-canvas .photograph-exif-info.opened .exif-info-box {
+	opacity: 1;
+	z-index: 1;
+}
+.projector-canvas .photograph-exif-info .exif-info-box .exif-record {
+	font-size: 1em;
+}
+@media (max-width: 1023px) {
+	.projector-canvas .photograph-exif-info .exif-info-box .exif-record {
+		font-size: 0.83em;
+	}
+}
+.projector-canvas .photograph-description-info .description-info-box .photograph-title {
+	/*margin-bottom: 1em;*/
+	display: inline-block;
+	padding: 0.8em;
+	margin: 0.8em;
+	line-height: 1.55;
+	background: rgba(0,0,0,0.5);
+	
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	    -ms-border-radius: 5px;
+	     -o-border-radius: 5px;
+	        border-radius: 5px;
+}
+.projector-canvas .photograph-description-info .description-info-box .photograph-title strong,
+.projector-canvas .photograph-description-info .description-info-box .photograph-title small {
+	display: block;
+}
+.projector-canvas .photograph-description-info .description-info-box .photograph-title strong {
+	font-weight: 700;
+}
+.projector-canvas .photograph-description-info .description-info-box .photograph-title small {
+}
+.projector-canvas .photograph-exif-info .exif-info-box .exif-record em {
+	color: #efefef;
+	display: inline-block;
+	width: 2.08em;
+	height: 1em;
+	font-style: italic;
+	text-align: right;
+	margin-right: 0.8em;
+	line-height: 1.5;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	position: relative;
+	top: 3px;
+}
+.projector-canvas .photograph-exif-info .exif-info-box .exif-record strong {
+	font-weight: 400;
+}
+.projector-canvas .photograph-exif-info .exif-info-box .exif-record h5 {
+	/*max-width: 222px;*/
+	display: inline-block;
+	margin: 0.1em 0 0.9em;
+	font-size: 1em;
+	font-weight: 700;
+}
+.projector-canvas .photograph-exif-info .exif-info-box .exif-record kbd {
+	/*max-width: 222px;*/
+	display: block;
+	font-style: italic;
+	margin-bottom: 0.3em;
+	position: relative;
+}
+
+.photograph-title-cont {
+	max-width: 422px;
+	margin-left: 3em;
+	border-left: 1px solid #eee;
+	padding-left: 1em;
+}
+/* End Exif info data */
+
+/* Projected image */
+.projector-canvas img {
+	position: absolute;
+	max-width: 90%;
+	max-height: 90%;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	margin: auto;
+	opacity: 0;
+	padding: 4px;
+	background: #f4f4f4;
+	border: 1px solid #898989;
+	
+	-webkit-transform: scale( 0.95 );
+	   -moz-transform: scale( 0.95 );
+	    -ms-transform: scale( 0.95 );
+	     -o-transform: scale( 0.95 );
+	        transform: scale( 0.95 );
+	
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	    -ms-border-radius: 5px;
+	     -o-border-radius: 5px;
+	        border-radius: 5px;
+	
+	-webkit-box-shadow: 0 0 8px 1px rgba( 0, 0, 0, 0.17 );
+	   -moz-box-shadow: 0 0 8px 1px rgba( 0, 0, 0, 0.17 );
+	    -ms-box-shadow: 0 0 8px 1px rgba( 0, 0, 0, 0.17 );
+	     -o-box-shadow: 0 0 8px 1px rgba( 0, 0, 0, 0.17 );
+	        box-shadow: 0 0 8px 1px rgba( 0, 0, 0, 0.17 );
+}
+.projector-canvas.dark img {
+	background: transparent;
+	max-width: 100%;
+	max-height: 100%;
+	padding: 0;
+	border: none;
+	
+	-webkit-border-radius: 0;
+	   -moz-border-radius: 0;
+	    -ms-border-radius: 0;
+	     -o-border-radius: 0;
+	        border-radius: 0;
+}
+.projector-canvas.accent img {
+	background: transparent;
+	padding: 0;
+	border: none;
+	
+	-webkit-border-radius: 0;
+	   -moz-border-radius: 0;
+	    -ms-border-radius: 0;
+	     -o-border-radius: 0;
+	        border-radius: 0;
+	
+	-webkit-box-shadow: 0 0 30px -7px rgba(0,0,0,0.3);
+	   -moz-box-shadow: 0 0 30px -7px rgba(0,0,0,0.3);
+	    -ms-box-shadow: 0 0 30px -7px rgba(0,0,0,0.3);
+	     -o-box-shadow: 0 0 30px -7px rgba(0,0,0,0.3);
+	        box-shadow: 0 0 30px -7px rgba(0,0,0,0.3);
+}
+.projector-canvas.loaded img,
+.projector-canvas img.in-process-of-swapping {
+	opacity: 1;
+	
+	-webkit-transform: scale( 1 );
+	   -moz-transform: scale( 1 );
+	    -ms-transform: scale( 1 );
+	     -o-transform: scale( 1 );
+	        transform: scale( 1 );
+}
+.projector-canvas,
+.projector-canvas img {
+	-webkit-transition: all 300ms;
+	 -khtml-transition: all 300ms;
+	   -moz-transition: all 300ms;
+	    -ms-transition: all 300ms;
+	     -o-transition: all 300ms;
+	        transition: all 300ms;
+}
+
+/*  Loader  */
+.projector-canvas.opened:not(.loaded)::before,
+.projector-canvas.opened:not(.loaded)::after {
+	content: '';
+	display: block;
+	vertical-align: middle;
+	padding: 0;
+	border-radius: 50%;
+	/*border: 1px dotted rgba( 0, 0, 0, 0.2 );*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 50px;
+	width: 50px;
+	animation: rotate-gear linear infinite 1s;
+	box-shadow: inset 0 2px 0 1px rgba(255, 255, 255, 0.4);
+	z-index: -1;
+	
+	-webkit-transform: translate( -50%, -50% );
+	   -moz-transform: translate( -50%, -50% );
+	    -ms-transform: translate( -50%, -50% );
+	     -o-transform: translate( -50%, -50% );
+	        transform: translate( -50%, -50% );
+}
+.projector-canvas.opened:not(.loaded)::after {
+	animation-duration: 2s;
+}
+@keyframes rotate-gear {
+	0% {
+		-webkit-transform: translate( -50%, -50% ) rotateZ( 0deg );
+		   -moz-transform: translate( -50%, -50% ) rotateZ( 0deg );
+		    -ms-transform: translate( -50%, -50% ) rotateZ( 0deg );
+		     -o-transform: translate( -50%, -50% ) rotateZ( 0deg );
+		        transform: translate( -50%, -50% ) rotateZ( 0deg );
+	}
+	100% {
+		-webkit-transform: translate( -50%, -50% ) rotateZ( 360deg );
+		   -moz-transform: translate( -50%, -50% ) rotateZ( 360deg );
+		    -ms-transform: translate( -50%, -50% ) rotateZ( 360deg );
+		     -o-transform: translate( -50%, -50% ) rotateZ( 360deg );
+		        transform: translate( -50%, -50% ) rotateZ( 360deg );
+	}
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8" />
+		
+		<link rel="stylesheet" href="css/re.projector.min.css">
+	</head>
+	<body>
+		<a data-accent-color="#9bbad6" href="http://renim.me/photographs/e4fae58e0c2bdce883ffd29aa24d0ec1.jpeg" class="re-projector" data-title="asd">link</a>
+		<a data-accent-color="rgb(247, 180, 253)" href="http://renim.me/photographs/82d650340569f0d801606306fc74eab9.jpeg" class="re-projector" data-description="sdcs">link</a>
+		<a
+			class="re-projector2"
+			href="http://renim.me/photographs/85899347158a8f1d7c3b6ef73e243d68.jpeg"
+			data-accent-color="#7a863d"
+			data-title=""
+			data-description=""
+			data-camera-make="NIKON CORPORATION"
+			data-camera-model="NIKON D7000"
+			data-camera-aperture="18/10"
+			data-camera-exposure="1/320"
+			data-camera-flength="500/10"
+			data-camera-iso="100"
+			data-camera-metering="5"
+			data-camera-program="3"
+			data-camera-date="2017-04-11 18:53:35">link</a>
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.touchSwipe.min.js"></script>
+		<script src="js/re.projector.min.js"></script>
+		<script type="text/javascript">
+		$(function( )
+		{
+			// this.close
+			// this.preview
+			// this.setClasses
+			// this.isVisible
+			// this.getCurrentLink
+			// this.setOpenCallback
+			// this.setCloseCallback
+			// this.setChangePhotographCallback
+			// this.setCanvasClickCallback
+			// this.expandToFullscreen
+			// this.exitFullscreen
+			// this.checkIfFullscreen
+			// this.getCurrentAccentColor
+			
+			var oProjector = new ReProjector({
+				'selector': '.re-projector',
+				'projectionControls': {
+					'settings': true,
+					'close': true,
+					'prevNext': true,
+					'exif': true,
+					'description': true,
+					'keyboard': {
+						'theme': true,
+						'exif': true,
+						'navigation': true,
+						'toggleControls': true
+					},
+					'mouse': {
+						'wheel': true,
+						'swipe': true,
+						'timeout': 5,
+					},
+					'toggle': 'mousemove',
+					'hideCursor': false,
+					'showNextOnClick': false,
+				},
+				'translations': {
+					'exposurePrograms': {
+						0: 'Недефиниран',
+						1: 'Ръчно',
+						2: 'Нормална програма',
+						3: 'Бленда',
+						4: 'Скорост',
+						5: 'Креативна програма',
+						6: 'Актова програма',
+						7: 'Портретен режим',
+						8: 'Пейзажен режим'
+					},
+					'months': {
+						1: 'яну', 2: 'фев', 3: 'мар',
+						4: 'апр', 5: 'май', 6: 'юни',
+						7: 'юли', 8: 'авг', 9: 'сеп',
+						10: 'окт', 11: 'ное', 12: 'дек'
+					},
+					'units': {
+						'seconds': 'сек',
+						'milimeters': 'мм'
+					}
+				},
+				// 'openCallback': function( ) { alert( 'Projector opened' ) },
+				// 'closeCallback': function( ) { alert( 'Projector closed' ) },
+				// 'changePhotographCallback': function( ) { alert( 'Projector photograph changed' ) },
+				// 'canvasClickCallback': function( ) { alert( 'Projector canvas clisked' ) }
+			});
+			
+			var oProjector2 = new ReProjector({
+				'selector': '.re-projector2'
+			});
+		});
+		</script>
+	</body>
+</html>

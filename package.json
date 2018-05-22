@@ -1,0 +1,41 @@
+{
+  "name": "reprojector",
+  "version": "1.0.0",
+  "description": "Image previewer",
+  "main": "index.js",
+  "scripts": {
+    "build:jquery": "cp node_modules/jquery/dist/jquery.min.js app/jquery/jquery.min.js"
+  },
+  "keywords": [
+    "projevtor",
+    "image",
+    "viewer",
+    "gallery",
+    "image",
+    "slider"
+  ],
+  "author": "Re",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.24.4",
+    "del": "^3.0.0",
+    "documentation": "^6.3.3",
+    "fs": "0.0.1-security",
+    "fs-then-native": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-cache": "^1.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-documentation": "^3.2.1",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-jsdoc-to-markdown": "^1.2.2",
+    "gulp-rename": "^1.2.3",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-useref": "^3.1.5",
+    "gulp-util": "^3.0.8",
+    "jquery": "^3.3.1",
+    "jquery-touchswipe": "^1.6.18",
+    "jsdoc-to-markdown": "^4.0.1",
+    "run-sequence": "^2.2.1"
+  }
+}
