@@ -362,7 +362,6 @@ var ReProjector = function( opt )
 				if( Inner.bTouchAndMove && Options.bSwipeNavigation ) {
 					var fDiff = Inner.iTouchAndMoveDistance - ( e.pageX || e.originalEvent.changedTouches[0].pageX );
 					
-					console.log( fDiff, Math.abs( fDiff ) )
 					if( Math.abs( fDiff ) > 40 ) {
 						Inner.swipeHandler.call( null, e, fDiff > 0 ? 'left' : 'right' );
 					}
@@ -1724,7 +1723,7 @@ var ReProjector = function( opt )
 		// https://gist.github.com/w33tmaricich/7009931
 		if (typeof history.pushState === "function") {
 			window.onpopstate = function () {
-				if( This.isCanvasVisible( ) && Inner.bActive ) {
+				if( This.isCanvasVisible( ) /*&& Inner.bActive*/ ) {
 					Inner.closeReProjector.call( );
 				}
 			};
