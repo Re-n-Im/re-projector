@@ -1,13 +1,13 @@
 {
-  "name": "reprojector",
-  "version": "1.0.0",
+  "name": "re-projector",
+  "version": "1.0.1",
   "description": "Image previewer",
-  "main": "index.js",
+  "main": "app/js/re-projector.js",
   "scripts": {
     "build:jquery": "cp node_modules/jquery/dist/jquery.min.js app/jquery/jquery.min.js"
   },
   "keywords": [
-    "projevtor",
+    "projector",
     "image",
     "viewer",
     "gallery",

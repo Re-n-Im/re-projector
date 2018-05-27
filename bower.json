@@ -1,0 +1,25 @@
+{
+  "name": "re-projector",
+  "description": "Image previewer",
+  "main": "app/js/re-projector.js",
+  "authors": [
+    "Re"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "projector",
+    "image",
+    "viewer",
+    "gallery",
+    "image",
+    "slider"
+  ],
+  "homepage": "https://re-n-im.github.io/reprojector/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
