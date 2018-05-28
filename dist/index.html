@@ -1,0 +1,978 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{Re}Projector</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<link href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps|Open+Sans:400,700" rel="stylesheet" />
+		<link href="css/reset.css" rel="stylesheet" />
+		<link href="css/photographs.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/re-projector.min.css">
+		<link rel="stylesheet" href="css/gruvbox-light.min.css" />
+		<style type="text/css">
+		html, body {
+			min-height: 100%;
+			background: url(images/noise.png);
+		}
+		body {
+			font-family: 'Open Sans', sans-serif;
+			font-size: 14px;
+		}
+		body * {
+			-webkit-box-sizing: border-box;
+			   -moz-box-sizing: border-box;
+			    -ms-box-sizing: border-box;
+			     -o-box-sizing: border-box;
+			        box-sizing: border-box;
+		}
+		.re-projector-title {
+			position: relative;
+		}
+		.re-projector-title::after {
+			content: '';
+			position: absolute;
+			bottom: 1px;
+			left: 0;
+			right: 0;
+			height: 4px;
+			background: rgba(0, 138, 255, 0.12);
+			z-index: 0;
+		}
+		h1.page-title {
+			position: relative;
+			font-family: 'Oleo Script Swash Caps', cursive;
+			font-size: 100px;
+			font-weight: normal;
+			text-align: center;
+			color: tomato;
+			margin: 1em 0 0.3em;
+			
+			-webkit-text-shadow: 2px 2px 4px rgba(64, 105, 41, 0.2);
+			   -moz-text-shadow: 2px 2px 4px rgba(64, 105, 41, 0.2);
+			    -ms-text-shadow: 2px 2px 4px rgba(64, 105, 41, 0.2);
+			     -o-text-shadow: 2px 2px 4px rgba(64, 105, 41, 0.2);
+			        text-shadow: 2px 2px 4px rgba(64, 105, 41, 0.2);
+		}
+		h1.page-title strong {
+			position: relative;
+		}
+		h1.page-title strong::after {
+			content: 'v' attr(data-ver);
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			font-family: serif;
+			text-align: center;
+			color: rgba(218, 218, 218, 0.66);
+			font-size: 18pt;
+			font-weight: bold;
+			font-style: italic;
+			
+			-webkit-text-shadow: none;
+			   -moz-text-shadow: none;
+			    -ms-text-shadow: none;
+			     -o-text-shadow: none;
+			        text-shadow: none;
+		}
+		h4.page-subtitle {
+			text-align: center;
+			font-size: 20pt;
+			color: #888;
+			margin: 0.7em;
+		}
+		.title-separator {
+			border: none;
+			background: #e0f1ff;
+			height: 2px;
+			width: 900px;
+			max-width: 80%;
+			margin: 40px auto;
+		}
+		h2 {
+			width: 900px;
+			max-width: 80%;
+			font: 34pt 'Oleo Script Swash Caps', cursive;
+			margin: 1.4em auto 0.5em;
+			color: tomato;
+		}
+		h3.sections {
+			width: 900px;
+			max-width: 80%;
+			font: italic 20pt 'Open Sans', sans-serif;
+			margin: 2.2em auto 0.5em;
+			color: #5377ab;
+			text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2), 2px 2px 2px rgba(0, 0, 0, 0.08);
+		}
+		h2 + h3.sections {
+			margin-top: 0.7em;
+		}
+		h3.sections code {
+			font-style: normal;
+			font-family: monospace;
+			background: rgba(0, 0, 0, 0.05);
+			padding: 0.1em 0.2em;
+			border-radius: 5px;
+		}
+		h3.sections code::before,
+		h3.sections code::after {
+			content: '`';
+		}
+		p.text {
+			width: 900px;
+			max-width: 80%;
+			margin: 0.2em auto 1em;
+			line-height: 1.5;
+			font-size: 18px;
+			color: #444;
+		}
+		ul.list {
+			width: 900px;
+			max-width: 80%;
+			margin: 2em auto;
+			padding-left: 7em;
+		}
+		ul.list li {
+			line-height: 1.48;
+			color: #444;
+			font-size: 18px;
+			list-style: disc;
+		}
+		.photographs-gallery {
+			margin: 50px auto;
+		}
+		pre {
+			width: 900px;
+			max-width: 80%;
+			margin: auto;
+		}
+		pre code.hljs {
+			box-shadow: 0 5px 7px -4px rgba(0, 0, 0, 0.2);
+			font-family: monospace;
+			line-height: 1.5;
+			padding-left: 3em;
+			background: #fffbea;
+		}
+		table.table {
+			width: 900px;
+			max-width: 100%;
+			margin: auto;
+			border-collapse: collapse;
+			background: #fff;
+			box-shadow: 0 5px 7px -4px rgba(0, 0, 0, 0.2);
+			font-size: 18px;
+			color: #444;
+		}
+		table.table col.col-option {
+			width: 30%;
+		}
+		table.table col.col-description {
+			width: 70%;
+		}
+		table.table tr th,
+		table.table tr td {
+			padding: 0.7em;
+			border: 1px solid #bbb;
+			line-height: 1.5;
+		}
+		table.table tr td.cell-option {
+			font-family: monospace;
+			vertical-align: middle;
+		}
+		table.table tr td.cell-option strong {
+			font-weight: bold;
+			color: #777;
+		}
+		table.table tr td.cell-description .muted {
+			font-weight: bold;
+			font-style: italic;
+			color: #bbb;
+		}
+		table.table tr td code {
+			background: #feedea;
+			font-family: monospace;
+			border-radius: 3px;
+			padding: 0.1em 0.2em;
+			color: #b64f3c;
+		}
+		table.table tr td.cell-description strong.example {
+			font-weight: bold;
+			color: #888;
+			text-decoration: underline;
+		}
+		table.table tr td.cell-description ul.list {
+			width: 100%;
+			max-width: auto;
+			margin: 0.3em auto;
+			padding-left: 0em;
+		}
+		table.table tr td.cell-description .note {
+			background: #fffbea;
+			padding: 0.3em;
+			border: 1px solid #eacf5c;
+			margin: 0.6em 0 0;
+			border-radius: 3px;
+		}
+		table.table tr td.cell-description .note::before {
+			content: 'Note: ';
+			font-weight: bold;
+			font-style: italic;
+			color: #aa9230;
+		}
+		@media (max-width: 768px) {
+			.title-separator,
+			h2,
+			h3.sections,
+			p.text,
+			ul.list,
+			pre,
+			table.table {
+				width: 100%;
+				max-width: 90%;
+			}
+			h1.page-title {
+				font-size: 70px;
+			}
+			h1.page-title strong::after {
+			    font-size: 15pt;
+			}
+			h4.page-subtitle {
+			    font-size: 17pt;
+			}
+		}
+		@media (max-width: 540px) {
+			table.table td.cell-option {
+				word-wrap: break-word;
+				word-break: break-all;
+			}
+			h1.page-title {
+				font-size: 50px;
+			}
+			h2 {
+				font-size: 29pt;
+			}
+			h1.page-title strong::after {
+			    font-size: 12pt;
+			}
+			h4.page-subtitle {
+			    font-size: 14pt;
+			}
+			h3.sections {
+				word-wrap: break-word;
+				word-break: break-all;
+			}
+		}
+		</style>
+	</head>
+	<body>
+		<h1 class="page-title"><strong data-ver="1.0β">{Re}Projector</strong></h1>
+		<h4 class="page-subtitle">simple image/gallery previewer</h4>
+		<hr class="title-separator" />
+		<h2>Try it!</h2>
+		<p class="text">Click over the images to preview them in <span class="re-projector-title">{Re}Projector</span>.</p>
+		<div class="photographs-gallery        zindex-filter      vintage-bg   realistic-shadow   white-bg-hover   stripped-photograph-hugger-bg   square      dark-color   noselect size-1">
+<a class="photograph-link pl-1" href="photographs/be4da15c1c06f28cb65b29e920c476cd.jpeg" data-accent-color="#abc270" data-id="25" data-title="Direction" data-description="" data-camera-make="NIKON CORPORATION" data-camera-model="NIKON D7000" data-camera-aperture="56/10" data-camera-exposure="1/60" data-camera-flength="2000/10" data-camera-iso="200" data-camera-metering="5" data-camera-program="3" data-camera-date="2017-06-30 11:24:40"><span class="photograph"><img src="photographs/thumbnails/small.be4da15c1c06f28cb65b29e920c476cd.jpeg" alt="Direction" class="heighten loaded"></span></a><a class="photograph-link pl-1" href="photographs/0b299f3f8d454deefce6fecac51d1fc9.jpeg" data-accent-color="#6c4732" data-id="134" data-title="" data-description="" data-camera-make="null" data-camera-model="null" data-camera-aperture="null" data-camera-exposure="null" data-camera-flength="null" data-camera-iso="null" data-camera-metering="null" data-camera-program="null" data-camera-date="null"><span class="photograph"><img src="photographs/thumbnails/small.0b299f3f8d454deefce6fecac51d1fc9.jpeg" alt="" class="heighten loaded"></span></a><a class="photograph-link pl-1" href="photographs/d373802bd6713dcca7accaf98d157457.jpeg" data-accent-color="rgb(108, 154, 203)" data-id="240" data-title="" data-description="" data-camera-make="null" data-camera-model="null" data-camera-aperture="null" data-camera-exposure="null" data-camera-flength="null" data-camera-iso="null" data-camera-metering="null" data-camera-program="null" data-camera-date="null"><span class="photograph"><img src="photographs/thumbnails/small.d373802bd6713dcca7accaf98d157457.jpeg" alt="" class="heighten loaded"></span></a><a class="photograph-link pl-1" href="photographs/06bc8c851acf57c67043336ebf0c5222.jpeg" data-accent-color="#942d6a" data-id="100" data-title="" data-description="" data-camera-make="NIKON CORPORATION" data-camera-model="NIKON D40" data-camera-aperture="56/10" data-camera-exposure="10/600" data-camera-flength="550/10" data-camera-iso="200" data-camera-metering="5" data-camera-program="3" data-camera-date="2010-11-07 10:29:47"><span class="photograph"><img src="photographs/thumbnails/small.06bc8c851acf57c67043336ebf0c5222.jpeg" alt="" class="heighten loaded"></span></a><a class="photograph-link pl-1" href="photographs/11d8d914c42fd915b1517c665e6a6304.jpeg" data-accent-color="#dfac19" data-id="167" data-title="" data-description="" data-camera-make="NIKON CORPORATION" data-camera-model="NIKON D40" data-camera-aperture="56/10" data-camera-exposure="10/12500" data-camera-flength="460/10" data-camera-iso="800" data-camera-metering="5" data-camera-program="3" data-camera-date="2010-06-28 09:10:14"><span class="photograph"><img src="photographs/thumbnails/small.11d8d914c42fd915b1517c665e6a6304.jpeg" alt="" class="heighten loaded"></span></a></div>
+		
+		<h2>Main features</h2>
+		<ul class="list">
+			<li>Customizable</li>
+			<li>Responsive</li>
+			<li>Basic camera info support (EXIF tags as data attributes)</li>
+			<li>Color backgrounds</li>
+		</ul>
+		
+		<h2>Install</h2>
+		<pre><code>
+git clone https://github.com/Re-n-Im/re-projector.git
+		</code></pre>
+		<p class="text">or</p>
+		<pre><code>
+bower install re-projector
+		</code></pre>
+		
+		<h2>How to use</h2>
+		<pre><code class="html">
+&lt;link rel=&quot;stylesheet&quot; href=&quot;dist/css/re-projector.min.css&quot; /&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;dist/js/re-projector.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+var oProjector = new ReProjector( );
+&lt;/script&gt;
+		</code></pre>
+		
+		<h2>Dependencies</h2>
+		<p class="text">
+			<span class="re-projector-title">{Re}Projector</span> depends on one library:
+		</p>
+		<ul class="list">
+			<li>JQuery</li>
+		</ul>
+		<pre><code class="html">
+&lt;script type=&quot;text/javascript&quot; src=&quot;dist/js/jquery.min.js&quot;&gt;&lt;/script&gt;
+		</code></pre>
+		<h2>Options</h2>
+		<p class="text">
+			Here is the full list of options (with their default values) which <span class="re-projector-title">{Re}Projector</span> accepts:
+		</p>
+		<pre><code class="javascript">
+var oProjector = new ReProjector({
+	'selector': '',
+	'theme': 'dark',
+	'projectionControls': {
+		'settings': true,
+		'close': true,
+		'prevNext': true,
+		'exif': true,
+		'description': true,
+		'keyboard': {
+			'theme': true,
+			'exif': true,
+			'navigation': true,
+			'toggleControls': true
+		},
+		'mouse': {
+			'wheel': true,
+			'swipe': true,
+			'timeout': 3
+		},
+		'toggle': 'click',
+		'hideCursor': true,
+		'showNextOnClick': false,
+		'zoomLinkBox': false
+	},
+	'callbacks': {
+		'open': null,
+		'close': null,
+		'changePhotograph': null,
+		'canvasClick': null
+	},
+	'translations': {
+		'exposurePrograms': {
+			0: 'Not defined',
+			1: 'Manual',
+			2: 'Normal program',
+			3: 'Aperture priority',
+			4: 'Shutter priority',
+			5: 'Creative program',
+			6: 'Action program',
+			7: 'Portrait mode',
+			8: 'Landscape mode'
+		},
+		'months': {
+			1:'Jan',2:'Feb',3:'Mar',
+			4:'Apr',5:'May',6:'Jun',
+			7:'Jul',8:'Aug',9:'Sep',
+			10:'Oct',11:'Nov',12:'Dec'
+		},
+		'units': {
+			'seconds': 's',
+			'milimeters': 'mm'
+		}
+	}
+});
+		</code></pre>
+		<h2>Options — described</h2>
+		<h3 class="sections">Main section</h3>
+		<table class="table">
+			<caption></caption>
+			<colgroup>
+				<col class="col-option" />
+				<col class="col-description" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>Option</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="cell-option"><strong>selector</strong></td>
+					<td class="cell-description">String value. Any valid CSS selector that matches tag with <code>href</code> or <code>data-href</code> attribute. Both of attributes’ values should end with some of the following file extensions: jpg, jpeg, png, gif<br/><strong class="example">Example:</strong> <code>a.photograph-link</code><br/><strong class="example">Default:</strong> <code>[href$=jpeg], [href$=jpg], [href$=png], [href$=gif], [data-href$=jpeg], [data-href$=jpg], [data-href$=png], [data-href$=gif]</code></td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong>theme</strong></td>
+					<td class="cell-description">
+						String value, This option defines the <span class="re-projector-title">{Re}Projector</span>’s background. Value should be one of the following:
+						<ul class="list">
+							<li><code>'dark'</code></li>
+							<li><code>'light'</code></li>
+							<li><code>'color'</code></li>
+						</ul>
+						<strong class="example">Default:</strong> <code>'dark'</code>
+						<div class="note">In case value <code>'color'</code> is selected, the element should contain an attribute <code>data-accent-color</code> with color value.</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3 class="sections">Section <code>projectionControls</code></h3>
+		<table class="table">
+			<caption></caption>
+			<colgroup>
+				<col class="col-option" />
+				<col class="col-description" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>Option</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td class="cell-option"><strong>settings</strong></td><td class="cell-description">
+					Boolean value, describes if the settings button is visible.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>close</strong></td><td class="cell-description">
+					Boolean value, describes if the close button is visible.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>prevNext</strong></td><td class="cell-description">
+					Boolean value, describes if the navigation buttons for previous and next slide are visible.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>exif</strong></td><td class="cell-description">
+					Boolean value, describes if the exif info toggle button (and the info itself) is visible.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>description</strong></td><td class="cell-description">
+					Boolean value, describes if the description box is visible.<br>
+					<strong class="example">Default:</strong> <code>true</code></td></tr>
+				<tr><td class="cell-option"><strong>keyboard</strong></td><td class="cell-description">
+					<span class="muted">subsection</span>
+				</td></tr>
+				<tr><td class="cell-option"><strong>&#x2514; theme</strong></td><td class="cell-description">
+					Boolean value, describes if the theme could be toggled with keyboard.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+					<div class="note">More info at section <code>Mice, keyboard and other interactions</code></div>
+				</td></tr>
+				<tr><td class="cell-option"><strong>&#x2514; exif</strong></td><td class="cell-description">
+					Boolean value, describes if the exif box could be toggled with keyboard.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+					<div class="note">More info at section <code>Mice, keyboard and other interactions</code></div>
+				</td></tr>
+				<tr><td class="cell-option"><strong>&#x2514; navigation</strong></td><td class="cell-description">
+					Boolean value, describes if the navigation could be handled by the keyboard.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+					<div class="note">More info at section <code>Mice, keyboard and other interactions</code></div>
+				</td></tr>
+				<tr><td class="cell-option"><strong>&#x2514; toggleControls</strong></td><td class="cell-description">
+					Boolean value, describes if the visibility of all the controls could be toggled with the keyboard.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+					<div class="note">More info at section <code>Mice, keyboard and other interactions</code></div>
+				</td></tr>
+				<tr><td class="cell-option"><strong>mouse</strong></td><td class="cell-description">
+					<span class="muted">subsection</span>
+				</td></tr>
+				<tr><td class="cell-option"><strong>&#x2514; wheel</strong></td><td class="cell-description">
+					Boolean value, describes if the mouse wheel will navigate through the slides.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>&#x2514; swipe</strong></td><td class="cell-description">
+					Boolean value, describes if the swipe gesture will navigate through the slides.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>&#x2514; timeout</strong></td><td class="cell-description">
+					Floating point value (seconds, multiplied by 1000), describes the time after last mouse movement when projection controls will be hidden. This is only in case <code>toggle</code> option is set to value <code>'mousemove'</code>.<br>
+					<strong class="example">Default:</strong> <code>3</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>toggle</strong></td><td class="cell-description">
+					String value, one of the following:
+					<ul class="list">
+						<li><code>'mousemove'</code> — visibility of projection controls will be hidden after the time defiend in option <code>timeout</code>. With new mousemove they will appear again.</li>
+						<li><code>'click'</code> — visibility of projection controls will be toggled with each click over the projected image. This options value is incompatible with <code>showNextOnClick</code> option.</li>
+						<li><code>'none'</code> or any other value to disable this option.</li>
+					</ul>
+					<strong class="example">Default:</strong> <code>'click'</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>hideCursor</strong></td><td class="cell-description">
+					Boolean value, describes the visibility of mouse cursor when projection controls hides.<br>
+					<strong class="example">Default:</strong> <code>true</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>showNextOnClick</strong></td><td class="cell-description">
+					Boolean value, describes whether click over the projected image will cause navigation to next one.<br>
+					<strong class="example">Default:</strong> <code>false</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>zoomLinkBox</strong></td><td class="cell-description">
+					Boolean value, describes whether to zoom link box while clicked (experimental).<br>
+					<strong class="example">Default:</strong> <code>false</code>
+				</td></tr>
+			</tbody>
+		</table>
+		<h3 class="sections">Section <code>callbacks</code></h3>
+		<table class="table">
+			<caption></caption>
+			<colgroup>
+				<col class="col-option" />
+				<col class="col-description" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>Option</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td class="cell-option"><strong>open</strong></td><td class="cell-description">
+					Callback value, that will fire after projector opens.<br>
+					<strong class="example">Default:</strong> <code>null</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>close</strong></td><td class="cell-description">
+					Callback value, that will fire after projector closes.<br>
+					<strong class="example">Default:</strong> <code>null</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>changePhotograph</strong></td><td class="cell-description">
+					Callback value, that will fire after navigation to another image.<br>
+					<strong class="example">Default:</strong> <code>null</code>
+				</td></tr>
+				<tr><td class="cell-option"><strong>canvasClick</strong></td><td class="cell-description">
+					Callback value, that will fire after click over the canvas (box behind the image).<br>
+					<strong class="example">Default:</strong> <code>null</code>
+				</td></tr>
+			</tbody>
+		</table>
+		<h3 class="sections">Section <code>translations</code></h3>
+		<table class="table">
+			<caption></caption>
+			<colgroup>
+				<col class="col-option" />
+				<col class="col-description" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>Option</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td class="cell-option"><strong>exposurePrograms</strong></td><td class="cell-description">
+					List of values for exposure program (EXIF).<br>
+					<strong class="example">Default:</strong>
+					<ul class="list">
+						<li><code>0</code>: <code>'Not defined'</code>,</li>
+						<li><code>1</code>: <code>'Manual'</code>,</li>
+						<li><code>2</code>: <code>'Normal program'</code>,</li>
+						<li><code>3</code>: <code>'Aperture priority'</code>,</li>
+						<li><code>4</code>: <code>'Shutter priority'</code>,</li>
+						<li><code>5</code>: <code>'Creative program'</code>,</li>
+						<li><code>6</code>: <code>'Action program'</code>,</li>
+						<li><code>7</code>: <code>'Portrait mode'</code>,</li>
+						<li><code>8</code>: <code>'Landscape mode'</code></li>
+					</ul>
+					More info <a href="https://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/exposureprogram.html">here</a>.
+				</td></tr>
+				<tr><td class="cell-option"><strong>months</strong></td><td class="cell-description">
+					Month names, short.<br>
+					<strong class="example">Default:</strong>
+					<ul class="list">
+						<li><code>1</code>: <code>'Jan'</code>,</li>
+						<li><code>2</code>: <code>'Feb'</code>,</li>
+						<li><code>3</code>: <code>'Mar'</code>,</li>
+						<li><code>4</code>: <code>'Apr'</code>,</li>
+						<li><code>5</code>: <code>'May'</code>,</li>
+						<li><code>6</code>: <code>'Jun'</code>,</li>
+						<li><code>7</code>: <code>'Jul'</code>,</li>
+						<li><code>8</code>: <code>'Aug'</code>,</li>
+						<li><code>9</code>: <code>'Sep'</code>,</li>
+						<li><code>10</code>: <code>'Oct'</code>,</li>
+						<li><code>11</code>: <code>'Nov'</code>,</li>
+						<li><code>12</code>: <code>'Dec'</code></li>
+					</ul>
+				</td></tr>
+				<tr><td class="cell-option"><strong>units</strong></td><td class="cell-description">
+					Milimeters and seconds, short.<br>
+					<strong class="example">Default:</strong>
+					<ul class="list">
+						<li><code>'seconds'</code>: <code>'s',</code></li>
+						<li><code>'milimeters'</code>: <code>'mm'</code></li>
+					</ul>
+				</td></tr>
+			</tbody>
+		</table>
+		<h2>Mice, keyboard and other interactions</h2>
+		<h3 class="sections">Mouse</h3>
+		<p class="text">Mouse wheel navigation through the slides is enabled by default.</p>
+		<h3 class="sections">Keyboard</h3>
+		<p class="text">Keybinding are available as follows:</p>
+		<table class="table">
+			<caption></caption>
+			<colgroup>
+				<col class="col-option" />
+				<col class="col-description" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>Key(s)</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td class="cell-option"><strong><code>F</code> key</strong></td><td class="cell-description">
+					Toggles fullscreen mode.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>H</code> key</strong></td><td class="cell-description">
+					Toggles the visibility of projection controls.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>I</code> key</strong></td><td class="cell-description">
+					Toggles the visibility of basic camera info box.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>1</code> key</strong></td><td class="cell-description">
+					Set background theme to <code>'dark'</code>.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>2</code> key</strong></td><td class="cell-description">
+					Set background theme to <code>'light'</code>.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>3</code> key</strong></td><td class="cell-description">
+					Set background theme to <code>'color'</code>.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>Arrow down</code> key</strong></td><td class="cell-description">
+					Navigate to next image.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>Arrow right</code> key</strong></td><td class="cell-description">
+					Navigate to next image.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>Space</code> key</code> key</strong></td><td class="cell-description">
+					Navigate to next image.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>Arrow up</code> key</strong></td><td class="cell-description">
+					Navigate to previous image.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>Arrow left</code> key</strong></td><td class="cell-description">
+					Navigate to previous image.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>Space</code> key + <code>Shift</code> key</strong></td><td class="cell-description">
+					Navigate to previous image.
+				</td></tr>
+				<tr><td class="cell-option"><strong><code>Escape</code> key</strong></td><td class="cell-description">
+					By default, pressing <code>ESC</code> key will close the <span class="re-projector-title">{Re}Projector</span>.
+					<ul class="list">
+						<li>In case settings box opened, pressing <code>ESC</code> key will close first it, and after that new keypress of <code>ESC</code> will continue as by default.</li>
+						<li>In case fullscreen activated, pressing <code>ESC</code> key will escape first fullscreen, and after that new keypress of <code>ESC</code> will continue as by default.</li>
+					</ul>
+				</td></tr>
+			</tbody>
+		</table>
+		<h2>Methods</h2>
+		<p class="text">The following methods are available for any instance of <code>ReProjector</code>:</p>
+		<table class="table">
+			<caption></caption>
+			<colgroup>
+				<col class="col-option" />
+				<col class="col-description" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>Method</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="cell-option"><strong><code>close()</code></strong></td>
+					<td class="cell-description">Closes the projector’s canvas.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>addCanvasClass(classes)</code></strong></td>
+					<td class="cell-description">Adds class(es) to projector’s canvas in order to change visibility by user defined stylesheets. String should contain space separated list of classes.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>isVisible()</code></strong></td>
+					<td class="cell-description">Checks if projector’s canvas is visible.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>getCurrentLink()</code></strong></td>
+					<td class="cell-description">Returns the currenly projected element’s link (or other tag that holds the <code>href</code> or <code>data-href</code> attributes) as a DOMElement.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>setOpenCallback(callback)</code></strong></td>
+					<td class="cell-description">Sets the open callback for projector.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>setCloseCallback(callback)</code></strong></td>
+					<td class="cell-description">Sets the close callback for projector.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>setChangePhotographCallback(callback)</code></strong></td>
+					<td class="cell-description">Sets the callback that fires when the projector change the image.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>setCanvasClickCallback(callback)</code></strong></td>
+					<td class="cell-description">Sets the callback that fires when click over the canvas.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>expandToFullscreen()</code></strong></td>
+					<td class="cell-description">Sets the fullscreen mode for projector.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>exitFullscreen()</code></strong></td>
+					<td class="cell-description">Exit the fullscreen mode for projector.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>checkIfFullscreen()</code></strong></td>
+					<td class="cell-description">Check if projector is in fullscreen mode.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>getCurrentAccentColor()</code></strong></td>
+					<td class="cell-description">Gets the current accent color of element, if applicable.</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<h2>Link data attributes</h2>
+		<p class="text">The link may contain the following data attributes:</p>
+		<table class="table">
+			<caption></caption>
+			<colgroup>
+				<col class="col-option" />
+				<col class="col-description" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>Attribute</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="cell-option"><strong><code>data-accent-color</code></strong></td>
+					<td class="cell-description">
+						The theme (background) color in case <code>color</code> theme will be used with <span class="re-projector-title">{Re}Projector</span>.<br>
+						<strong class="example">Example</strong>: <code>#abc270</code>
+					</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-title</code></strong></td>
+					<td class="cell-description">The title of the image.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-description</code></strong></td>
+					<td class="cell-description">The description of the image. It appears below the title.</td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-camera-make</code></strong></td>
+					<td class="cell-description">Manufacturer of the camera. (EXIF; not is use)<br>
+					<strong class="example">Example</strong>: <code>NIKON CORPORATION</code></td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-camera-model</code></strong></td>
+					<td class="cell-description">Model of the camera. (EXIF)<br>
+					<strong class="example">Example</strong>: <code>NIKON D7000</code></td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-camera-aperture</code></strong></td>
+					<td class="cell-description">The aperture value for the photo. (EXIF)<br>
+					<strong class="example">Example</strong>: <code>56/10</code></td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-camera-exposure</code></strong></td>
+					<td class="cell-description">The time value for the photo. (EXIF)<br>
+					<strong class="example">Example</strong>: <code>1/60</code></td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-camera-flength</code></strong></td>
+					<td class="cell-description">The focal length of the lens while the photo has been taken. (EXIF)<br>
+					<strong class="example">Example</strong>: <code>2000/10</code></td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-camera-iso</code></strong></td>
+					<td class="cell-description">The ISO sensitivity of the photo. (EXIF)<br>
+					<strong class="example">Example</strong>: <code>200</code></td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-camera-metering</code></strong></td>
+					<td class="cell-description">The exposure metering of the photo. (EXIF; still not in use)<br>
+					<strong class="example">Example</strong>: <code>5</code></td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-camera-program</code></strong></td>
+					<td class="cell-description">The exposure program of the photo. It is a number. More info <a href="https://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/exposureprogram.html">here</a>. (EXIF)<br>
+					<strong class="example">Example</strong>: <code>3</code></td>
+				</tr>
+				<tr>
+					<td class="cell-option"><strong><code>data-camera-date</code></strong></td>
+					<td class="cell-description">Date when picture was taken. (EXIF)<br>
+					<strong class="example">Example</strong>: <code>2017-06-30 11:24:40</code></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<h2>License</h2>
+		<p class="text">The MIT license.</p>
+		<p class="text">Copyright (c) 2012-2018 Yavor Zhelyazkov http://renim.me</p>
+
+		<p class="text">Permission is hereby granted, free of charge, to any person obtaining a copy
+		of this software and associated documentation files (the "Software"), to deal
+		in the Software without restriction, including without limitation the rights
+		to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+		copies of the Software, and to permit persons to whom the Software is
+		furnished to do so, subject to the following conditions:</p>
+
+		<p class="text">The above copyright notice and this permission notice shall be included in
+		all copies or substantial portions of the Software.</p>
+
+		<p class="text">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+		FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+		AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+		LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+		OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+		THE SOFTWARE.</p>
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/re-projector.min.js"></script>
+		<script src="js/highlight.min.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<script type="text/javascript">
+		Math.imrand = function( )
+		{
+			if( arguments.length != 2 )
+			{
+				throw new Exception( 'To use `imrand` function, you should provide exactly two parameters!' );
+			}
+			
+			var a = Math.abs( Math.round( arguments[ 0 ] ) );
+			var b = Math.abs( Math.round( arguments[ 1 ] ) );
+			
+			if( isNaN( a ) || isNaN( b ) )
+			{
+				throw new Exception( 'Both of the params should be integer!' );
+			}
+			
+			if( a > b )
+			{
+				a = a + b;
+				b = a - b;
+				a = a - b;
+			}
+			else if( a == b )
+				return a;
+			
+			var fRand = Math.random( );
+			var iRand = Math.round( fRand * ( b - a ) + a );
+			
+			return iRand;
+		};
+		
+		Math.randBool = function( )
+		{
+			var t = !!Math.round( Math.random( ) );
+			
+			if (arguments.length == 2)
+				return t ? arguments[ 0 ] : arguments[ 1 ];
+			else
+				return t;
+		};
+
+		// David Walsh
+		var oPrefix = (function () {
+		  var styles = window.getComputedStyle(document.documentElement, ''),
+		    pre = (Array.prototype.slice
+		      .call(styles)
+		      .join('') 
+		      .match(/-(moz|webkit|ms)-/) || (styles.OLink === '' && ['', 'o'])
+		    )[1],
+		    dom = ('WebKit|Moz|MS|O').match(new RegExp('(' + pre + ')', 'i'))[1];
+		  return {
+		    dom: dom,
+		    lowercase: pre,
+		    css: '-' + pre + '-',
+		    js: pre[0].toUpperCase() + pre.substr(1)
+		  };
+		})();
+
+		$(function( )
+		{
+			// JQuery
+			var oPG = $( '.photographs-gallery' );
+			
+			// Milliseconds
+			var MIN_DELAY_TIME_TRANSFORM = 10;
+			var MAX_DELAY_TIME_TRANSFORM = 500;
+			
+			// Pixels
+			var SHIFT_X_LOWER = 20;
+			var SHIFT_X_UPPER = 60;
+			var SHIFT_Y_LOWER = 20;
+			var SHIFT_Y_UPPER = 60;
+			
+			// Degrees
+			var ANGLE_LOWER = 20;
+			var ANGLE_UPPER = 30;
+			
+			var aPhotographLinkSelectors = [
+				'.photograph-link.pl-1',
+				'.photograph-link.pl-2'
+			];
+			
+			var sPrefix = oPrefix[ 'js' ];
+			
+			var getPhotographLinks = function( sel )
+			{
+				var oO = oPG.find( sel );
+				return oO;
+			};
+			
+			var randomizeTransform = function( )
+			{
+				var oO = $( this );
+				var iAngleKoef = Math.imrand( ANGLE_LOWER , ANGLE_UPPER );
+				var iDynamicShiftKoefX = Math.imrand( SHIFT_X_LOWER , SHIFT_X_UPPER );
+				var iDynamicShiftKoefY = Math.imrand( SHIFT_Y_LOWER , SHIFT_Y_UPPER);
+				var iAngle = Math.imrand( 1 , iAngleKoef ) * Math.randBool( 1 , -1 );
+				var iShiftX = Math.imrand( 1 , Math.round( ( Math.imrand( 1 , 100 ) / 100 ) * iDynamicShiftKoefX ) ) * Math.randBool( 1 , -1 );
+				var iShiftY = Math.imrand( 1 , Math.round( ( Math.imrand( 1 , 100 ) / 100 ) * iDynamicShiftKoefY ) ) * Math.randBool( 1 , -1 );
+				var sTransform = 'rotate(' + iAngle + 'deg) translate(' + iShiftX + 'px,' + iShiftY + 'px)';
+				
+				setTimeout( function( ) {
+					oO
+					.css( sPrefix + 'Transform' , sTransform )
+					.css( 'transform' , sTransform );
+				}, Math.imrand( MIN_DELAY_TIME_TRANSFORM , MAX_DELAY_TIME_TRANSFORM ) );
+			};
+			
+			var randomizeTransformAll = function( sel )
+			{
+				getPhotographLinks( sel ).each( function( )
+				{
+					var oOo = $( this );
+					
+					randomizeTransform.call( oOo );
+				});
+			};
+			
+			for( var sel in aPhotographLinkSelectors ) {
+				randomizeTransformAll( aPhotographLinkSelectors[ sel ] );
+			}
+			
+			var oProjector = new ReProjector( '.photograph-link.pl-1' );
+			
+			var oProjector2 = new ReProjector({
+				'selector': '.photograph-link.pl-2',
+				'theme': 'color',
+				'translations': {
+					'exposurePrograms': {
+						0: 'Недефиниран',
+						1: 'Ръчно',
+						2: 'Нормална програма',
+						3: 'Бленда',
+						4: 'Скорост',
+						5: 'Креативна програма',
+						6: 'Актова програма',
+						7: 'Портретен режим',
+						8: 'Пейзажен режим'
+					},
+					'months': {
+						1: 'яну', 2: 'фев', 3: 'мар',
+						4: 'апр', 5: 'май', 6: 'юни',
+						7: 'юли', 8: 'авг', 9: 'сеп',
+						10: 'окт', 11: 'ное', 12: 'дек'
+					},
+					'units': {
+						'seconds': 'сек',
+						'milimeters': 'мм'
+					}
+				}
+			});
+		});
+		</script>
+	</body>
+</html>
