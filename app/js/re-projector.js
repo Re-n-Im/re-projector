@@ -329,14 +329,18 @@ var ReProjector = function( opt )
 	 * @param	e	event
 	 * @return	void
 	 */
+	iXCoord = 0;
+	dTime = null;
 	Inner.canvasImageMousedownHandler = function( e )
 	{
 		if( !Inner.isTouchDevice.call( ) )
 			e.preventDefault( );
 		
 		if( Inner.bActive ) {
-			Inner.bTouchAndMove = false;
-			Inner.iTouchAndMoveDistance = e.pageX || e.originalEvent.targetTouches[0].pageX;
+			iXCoord = e.pageX || e.originalEvent.targetTouches[0].pageX;
+			dTime = new Date;
+			Inner.bTouchAndMove = true;
+			Inner.iTouchAndMoveDistance = iXCoord;
 		}
 	};
 	
@@ -349,7 +353,15 @@ var ReProjector = function( opt )
 	Inner.canvasImageMousemoveHandler = function( e )
 	{
 		if( Inner.bActive ) {
-			if( Inner.bTouchAndMove === false ) {
+			if( Inner.bTouchAndMove === true ) {
+				var iTempXCoord = ( e.pageX || e.originalEvent.changedTouches[0].pageX );
+				var dTempTime = new Date( );
+				
+				if( dTime ) {
+					console.log( Math.abs( iXCoord - iTempXCoord ) / ( dTempTime - dTime ) );
+				}
+				
+				dTime = dTempTime;
 				Inner.bTouchAndMove = true;
 			}
 		}
@@ -366,7 +378,8 @@ var ReProjector = function( opt )
 		if( Inner.bActive ) {
 			setTimeout( function( ) { // To fire after click
 				if( Inner.bTouchAndMove && Options.bSwipeNavigation ) {
-					var fDiff = Inner.iTouchAndMoveDistance - ( e.pageX || e.originalEvent.changedTouches[0].pageX );
+					var iTempXCoord = ( e.pageX || e.originalEvent.changedTouches[0].pageX );
+					var fDiff = Inner.iTouchAndMoveDistance - iTempXCoord;
 					
 					if( Math.abs( fDiff ) > 40 ) {
 						Inner.swipeHandler.call( null, e, fDiff > 0 ? 'left' : 'right' );
@@ -374,7 +387,7 @@ var ReProjector = function( opt )
 				}
 				
 				Inner.iTouchAndMoveDistance = 0;
-				Inner.bTouchAndMove = null;
+				Inner.bTouchAndMove = false;
 			}, 0 );
 		}
 	};
