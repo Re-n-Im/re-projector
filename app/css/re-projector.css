@@ -527,11 +527,6 @@ body.re-projection {
 	background: #fff;
 	z-index: 10;
 	
-	bottom: 8px;
-	right: 4px;
-	height: 17px;
-	width: 23px;
-	
 	-webkit-transition: all 300ms;
 	   -moz-transition: all 300ms;
 	    -ms-transition: all 300ms;
@@ -570,10 +565,6 @@ body.re-projection {
 	bottom: 1px;
 	right: 14px;
 	
-	height: 14px;
-	right: 17px;
-	width: 1.2px;
-	
 	-webkit-border-radius: 2px;
 	   -moz-border-radius: 2px;
 	    -ms-border-radius: 2px;
@@ -586,22 +577,17 @@ body.re-projection {
 	right: 4px;
 	bottom: 3px;
 	
-	height: 9px;
-	width: 9px;
-	right: 4px;
-	bottom: 4px;
-	
 	-webkit-border-radius: 50%;
 	   -moz-border-radius: 50%;
 	    -ms-border-radius: 50%;
 	     -o-border-radius: 50%;
 	        border-radius: 50%;
 	
-	-webkit-box-shadow: 0 -7px 0 0 #fff;
-	   -moz-box-shadow: 0 -7px 0 0 #fff;
-	    -ms-box-shadow: 0 -7px 0 0 #fff;
-	     -o-box-shadow: 0 -7px 0 0 #fff;
-	        box-shadow: 0 -7px 0 0 #fff;
+	-webkit-box-shadow: 0 -6px 0 0 #fff;
+	   -moz-box-shadow: 0 -6px 0 0 #fff;
+	    -ms-box-shadow: 0 -6px 0 0 #fff;
+	     -o-box-shadow: 0 -6px 0 0 #fff;
+	        box-shadow: 0 -6px 0 0 #fff;
 }
 .projector-canvas .photograph-exif-info.opened .photograph-exif-info-button {
 	background: transparent;
